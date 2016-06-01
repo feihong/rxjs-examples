@@ -10,10 +10,12 @@ Rx.Observable.range(44, 6)
 
 section 'generateWithRelativeTime'
 
+todo = ['fix car', 'buy food', 'take meds', 'walk dog', 'order out', 'pick up dry cleaning']
+
 Rx.Observable.generateWithRelativeTime(
-  3,
-  (x) -> x < 22,
-  (x) -> x + 2,
-  (x) -> x,
-  (x) -> 1000)
-  .subscribe((x) -> print(x))
+  0,
+  (i) -> i < todo.length,
+  (i) -> i + 1,
+  (i) -> todo[i],
+  (i) -> 1000)
+  .subscribe((x) -> print(x + ', '))
