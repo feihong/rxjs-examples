@@ -5,11 +5,11 @@ $(function() {
 });
 
 function section(title) {
-  $('<h4>').text(title).appendTo($('#content'))
+  $('<h4>').text(title).appendTo($('#output'))
 }
 
 function print(text) {
-  var $content = $('#content')
+  var $content = $('#output')
   var $p = null
   if ($content.children().length === 0) {
     $p = $('<p>').appendTo($content)
@@ -23,5 +23,5 @@ function print(text) {
 }
 
 function println(text) {
-  $('<p>').text(text).appendTo($('#content'))
+  $('<p>').text(text).appendTo($('#output'))
 }
