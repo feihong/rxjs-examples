@@ -21,7 +21,7 @@ window.println = (text) ->
 
 
 examples = []
-started = false
+running = false
 
 window.example = (title, fn) ->
   callback = () ->
@@ -31,10 +31,12 @@ window.example = (title, fn) ->
       if examples.length > 0
         newCallback = examples.shift()
         newCallback()
+      else
+        running = false
     fn(dfd.resolve)
 
-  if started
+  if running
     examples.push callback
   else
-    started = true
+    running = true
     callback()
