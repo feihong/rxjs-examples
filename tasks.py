@@ -83,6 +83,13 @@ def clean():
 
 
 @task
+def serve_build():
+    os.chdir('build')
+    cmd = ['python', '-m', 'SimpleHTTPServer']
+    subprocess.call(cmd)
+
+
+@task
 def publish():
     build()
     run('ghp-import -n -p build')
@@ -196,6 +203,12 @@ def copy_or_generate(src, dest_dir):
         dest = dest_dir / (src.stem + '.css')
         with dest.open('w') as fp:
             fp.write(render_stylesheet(src))
+        return dest
+
+    if src.suffix == '.coffee':
+        dest = dest_dir / (src.stem + '.js')
+        with dest.open('w') as fp:
+            fp.write(compile_coffeescript(src).decode('utf-8'))
         return dest
 
     shutil.copy(str(src), str(dest_dir))
